@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/functional_testing/Functional_testing.iml" filepath="$PROJECT_DIR$/functional_testing/Functional_testing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Piv_droid.iml" filepath="$PROJECT_DIR$/Piv_droid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/unit_testing/Unit_testing.iml" filepath="$PROJECT_DIR$/unit_testing/Unit_testing.iml" />
+    </modules>
+  </component>
+</project>
+
