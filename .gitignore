@@ -1,0 +1,6 @@
+bin/
+functional_testing/bin/
+functional_testing/gen/
+gen/
+unit_testing/bin/
+unit_testing/gen/
