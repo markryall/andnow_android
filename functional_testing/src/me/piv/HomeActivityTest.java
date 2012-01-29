@@ -1,21 +1,27 @@
 package me.piv;
 
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.suitebuilder.annotation.Smoke;
+import com.jayway.android.robotium.solo.Solo;
 
-/**
- * This is a simple framework for a test of an Application.  See
- * {@link android.test.ApplicationTestCase ApplicationTestCase} for more information on
- * how to write and extend Application tests.
- * <p/>
- * To run this test, you can type:
- * adb shell am instrument -w \
- * -e class me.piv.HomeActivityTest \
- * me.piv.tests/android.test.InstrumentationTestRunner
- */
 public class HomeActivityTest extends ActivityInstrumentationTestCase2<HomeActivity> {
+    private Solo solo;
 
     public HomeActivityTest() {
         super("me.piv", HomeActivity.class);
     }
 
+    public void setUp() throws Exception {
+        solo = new Solo(getInstrumentation(), getActivity());
+    }
+
+    @Override
+    public void tearDown() throws Exception {
+        solo.finishOpenedActivities();
+    }
+
+    @Smoke
+    public void testClickStart() throws Exception {
+       // do some stuff here
+    }
 }
