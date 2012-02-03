@@ -6,11 +6,11 @@
     android:layout_height="fill_parent"
     android:background="@color/background"
     android:gravity="center"
-    android:padding="40dip"
+    android:padding="30dip"
     >
 <TextView  
     android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
+    android:layout_height="wrap_content"
     android:text="@string/main_title"
     android:gravity="center_vertical|center_horizontal"
     android:layout_marginBottom="25dip"
@@ -19,13 +19,17 @@
 <Button
     android:id="@+id/start_button"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="100dip"
     android:text="@string/start_label"
+    android:background="@drawable/green_button"
+    android:textSize="24.5sp"
     />
 <Button
     android:id="@+id/stop_button"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="100dip"
     android:text="@string/stop_label"
+    android:background="@drawable/red_button"
+    android:textSize="24.5sp"
     />
 </LinearLayout>
