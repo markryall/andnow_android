@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">HomeActivity</string>
+    <string name="main_title">and now?</string>
+    <string name="start_label">start</string>
+    <string name="stop_label">stop</string>
 </resources>
