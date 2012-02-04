@@ -10,9 +10,9 @@ import android.view.Window;
 import android.widget.EditText;
 import me.piv.data.SessionData;
 
-import static me.piv.data.SessionColumns.TABLE_NAME;
-import static me.piv.data.SessionColumns.START_TIME;
-import static me.piv.data.SessionColumns.DESCRIPTION;
+import static me.piv.data.Session.TABLE_NAME;
+import static me.piv.data.Session.START_TIME;
+import static me.piv.data.Session.DESCRIPTION;
 
 public class StartActivity extends Activity implements View.OnClickListener {
     private SessionData sessions;
@@ -39,6 +39,6 @@ public class StartActivity extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         EditText edittext = (EditText) findViewById(R.id.description);
         createSession(edittext.getText().toString());
-        this.finish();
+        finish();
     }
 }
