@@ -1,8 +1,8 @@
 package me.piv;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 
@@ -20,10 +20,10 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         switch(view.getId()) {
             case R.id.start_button:
-                Log.i("me.piv.HomeActivity","started");
+                startActivity(new Intent(this, StartActivity.class));
                 return;
             case R.id.stop_button:
-                Log.i("me.piv.HomeActivity","stopped");
+                startActivity(new Intent(this, StopActivity.class));
                 return;
         }
     }
