@@ -1,28 +1,28 @@
-package me.piv;
+package me.piv.andnow.activity;
 
 import android.app.ListActivity;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import me.piv.data.Session;
-import me.piv.data.SessionData;
+import me.piv.andnow.R;
+import me.piv.andnow.data.Session;
+import me.piv.andnow.data.SessionData;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.provider.BaseColumns._ID;
-import static me.piv.data.Session.TABLE_NAME;
-import static me.piv.data.Session.START_TIME;
-import static me.piv.data.Session.END_TIME;
-import static me.piv.data.Session.DESCRIPTION;
+import static me.piv.andnow.data.Session.TABLE_NAME;
+import static me.piv.andnow.data.Session.START_TIME;
+import static me.piv.andnow.data.Session.END_TIME;
+import static me.piv.andnow.data.Session.DESCRIPTION;
 
-public class StopActivity extends ListActivity implements AdapterView.OnItemClickListener {
+public class Stop extends ListActivity implements AdapterView.OnItemClickListener {
     private static String[] FROM = { _ID, START_TIME, DESCRIPTION };
     private static String ORDER_BY = START_TIME + " DESC";
     private static String WHERE = END_TIME + " IS NULL";

@@ -1,6 +1,7 @@
 package me.piv;
 
 import android.test.ActivityInstrumentationTestCase2;
+import me.piv.andnow.activity.Main;
 
 /**
  * This is a simple framework for a test of an Application.  See
@@ -12,10 +13,10 @@ import android.test.ActivityInstrumentationTestCase2;
  * -e class me.piv.HomeActivityTest \
  * me.piv.tests/android.test.InstrumentationTestRunner
  */
-public class HomeActivityTest extends ActivityInstrumentationTestCase2<HomeActivity> {
+public class HomeActivityTest extends ActivityInstrumentationTestCase2<Main> {
 
     public HomeActivityTest() {
-        super("me.piv", HomeActivity.class);
+        super("me.piv", Main.class);
     }
 
 }

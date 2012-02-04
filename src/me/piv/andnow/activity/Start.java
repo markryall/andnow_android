@@ -1,4 +1,4 @@
-package me.piv;
+package me.piv.andnow.activity;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -13,16 +13,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import me.piv.data.SessionData;
+import me.piv.andnow.R;
+import me.piv.andnow.data.SessionData;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static me.piv.data.Session.TABLE_NAME;
-import static me.piv.data.Session.START_TIME;
-import static me.piv.data.Session.DESCRIPTION;
+import static me.piv.andnow.data.Session.TABLE_NAME;
+import static me.piv.andnow.data.Session.START_TIME;
+import static me.piv.andnow.data.Session.DESCRIPTION;
 
-public class StartActivity extends Activity implements TextView.OnEditorActionListener, View.OnClickListener, AdapterView.OnItemClickListener {
+public class Start extends Activity implements TextView.OnEditorActionListener, View.OnClickListener, AdapterView.OnItemClickListener {
     private SessionData sessionData;
     private List<String> activities;
     private static String[] FROM = { DESCRIPTION };

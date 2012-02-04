@@ -1,14 +1,14 @@
-package me.piv.data;
+package me.piv.andnow.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import static android.provider.BaseColumns._ID;
-import static me.piv.data.Session.TABLE_NAME;
-import static me.piv.data.Session.DESCRIPTION;
-import static me.piv.data.Session.START_TIME;
-import static me.piv.data.Session.END_TIME;
+import static me.piv.andnow.data.Session.TABLE_NAME;
+import static me.piv.andnow.data.Session.DESCRIPTION;
+import static me.piv.andnow.data.Session.START_TIME;
+import static me.piv.andnow.data.Session.END_TIME;
 
 public class SessionData extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "session_data.db";

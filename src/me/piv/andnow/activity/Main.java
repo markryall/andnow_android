@@ -1,12 +1,13 @@
-package me.piv;
+package me.piv.andnow.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import me.piv.andnow.R;
 
-public class HomeActivity extends Activity implements View.OnClickListener {
+public class Main extends Activity implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -20,10 +21,10 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         switch(view.getId()) {
             case R.id.start_button:
-                startActivity(new Intent(this, StartActivity.class));
+                startActivity(new Intent(this, Start.class));
                 return;
             case R.id.stop_button:
-                startActivity(new Intent(this, StopActivity.class));
+                startActivity(new Intent(this, Stop.class));
                 return;
         }
     }
