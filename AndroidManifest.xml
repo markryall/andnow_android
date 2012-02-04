@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="me.piv.andnow"
+    package="me.piv"
     android:versionCode="1"
     android:versionName="1.0"
     >
@@ -10,7 +10,7 @@
        android:icon="@drawable/icon"
     >
         <activity
-            android:name=".activity.Main"
+            android:name=".andnow.activity.Main"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
         >
@@ -20,12 +20,12 @@
         </intent-filter>
         </activity>
         <activity
-            android:name=".activity.Start"
+            android:name=".andnow.activity.Start"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
         />
         <activity
-            android:name=".activity.Stop"
+            android:name=".andnow.activity.Stop"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
         />

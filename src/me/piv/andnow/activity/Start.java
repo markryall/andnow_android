@@ -8,12 +8,13 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import me.piv.andnow.R;
+import me.piv.R;
 import me.piv.andnow.data.SessionData;
 
 import java.util.ArrayList;
