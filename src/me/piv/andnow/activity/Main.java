@@ -3,6 +3,8 @@ package me.piv.andnow.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import me.piv.R;
@@ -27,5 +29,22 @@ public class Main extends Activity implements View.OnClickListener {
                 startActivity(new Intent(this, Stop.class));
                 return;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.settings:
+                startActivity(new Intent(this, Preferences.class));
+                return true;
+        }
+        return false;
     }
 }

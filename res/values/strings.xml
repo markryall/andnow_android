@@ -4,4 +4,7 @@
     <string name="main_title">and now?</string>
     <string name="start_label">start</string>
     <string name="stop_label">stop</string>
+    <string name="settings_label">Settings...</string>
+    <string name="server_title">Server</string>
+    <string name="server_summary">Remote server to synchronise with</string>
 </resources>
