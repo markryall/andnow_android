@@ -11,7 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import me.piv.R;
+import me.piv.andnow.R;
 import me.piv.andnow.data.SessionData;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;

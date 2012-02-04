@@ -2,7 +2,7 @@ package me.piv.andnow.activity;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-import me.piv.R;
+import me.piv.andnow.R;
 
 public class Preferences extends PreferenceActivity {
     public void onCreate(Bundle savedInstanceState) {

@@ -13,7 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import me.piv.R;
+import me.piv.andnow.R;
 import me.piv.andnow.data.SessionData;
 
 import java.util.ArrayList;
