@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/functional_testing/Functional_testing.iml" filepath="$PROJECT_DIR$/functional_testing/Functional_testing.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Piv_droid.iml" filepath="$PROJECT_DIR$/Piv_droid.iml" />
       <module fileurl="file://$PROJECT_DIR$/unit_testing/Unit_testing.iml" filepath="$PROJECT_DIR$/unit_testing/Unit_testing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/andnow.iml" filepath="$PROJECT_DIR$/andnow.iml" />
     </modules>
   </component>
 </project>
