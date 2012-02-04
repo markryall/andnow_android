@@ -91,10 +91,11 @@ public class Main extends Activity implements View.OnClickListener {
                 parent.put("session", session);
                 String json = parent.toString();
                 StringEntity entity = new StringEntity(json, "utf-8");
-                entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+                entity.setContentType("application/json");
                 postMethod.setEntity(entity);
                 HttpResponse response = httpClient.execute(postMethod);
-                Log.i("me.piv",response.toString());
+                String responseString = response.toString();
+                Log.i("me.piv", responseString);
             } catch (Exception e) {
                 Log.e("me.piv","error sending message", e);
             }
