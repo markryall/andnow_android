@@ -1,0 +1,2 @@
+adb pull /data/data/me.piv/databases/session_data.db
+sqlite3 session_data.db

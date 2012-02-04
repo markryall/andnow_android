@@ -6,3 +6,4 @@ gen/
 unit_testing/bin/
 unit_testing/gen/
 out/
+session_data.db
