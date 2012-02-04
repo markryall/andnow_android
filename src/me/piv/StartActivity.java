@@ -2,36 +2,63 @@ package me.piv;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import me.piv.data.SessionData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static me.piv.data.Session.TABLE_NAME;
 import static me.piv.data.Session.START_TIME;
 import static me.piv.data.Session.DESCRIPTION;
 
-public class StartActivity extends Activity implements TextView.OnEditorActionListener, View.OnClickListener {
-    private SessionData sessions;
+public class StartActivity extends Activity implements TextView.OnEditorActionListener, View.OnClickListener, AdapterView.OnItemClickListener {
+    private SessionData sessionData;
+    private List<String> activities;
+    private static String[] FROM = { DESCRIPTION };
+    private static String ORDER_BY = DESCRIPTION;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.start);
-        sessions = new SessionData(this);
+        sessionData = new SessionData(this);
+        loadData();
         findViewById(R.id.ok).setOnClickListener(this);
         ((TextView)findViewById(R.id.description)).setOnEditorActionListener(this);
+        getListView().setOnItemClickListener(this);
+    }
+
+    public void loadData() {
+        Cursor cursor = getDescriptionCursor();
+        activities = new ArrayList<String>();
+        while (cursor.moveToNext()) activities.add(cursor.getString(0));
+        getListView().setAdapter(new ArrayAdapter(this, R.layout.start_list_item, activities));
+    }
+
+    private ListView getListView() {
+        return (ListView)findViewById(R.id.activities);
+    }
+
+    private Cursor getDescriptionCursor() {
+        SQLiteDatabase db = sessionData.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, FROM, null, null, DESCRIPTION, null, ORDER_BY);
+        startManagingCursor(cursor);
+        return cursor;
     }
 
     public void createSession(String description) {
-        Log.i("me.piv.StartActivity",description);
-        SQLiteDatabase db = sessions.getWritableDatabase();
+        SQLiteDatabase db = sessionData.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(START_TIME, System.currentTimeMillis());
         values.put(DESCRIPTION, description);
@@ -51,6 +78,12 @@ public class StartActivity extends Activity implements TextView.OnEditorActionLi
 
     private void confirm(TextView textView) {
         createSession(textView.getText().toString());
+        finish();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        createSession(activities.get(i));
         finish();
     }
 }

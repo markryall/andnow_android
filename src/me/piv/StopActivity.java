@@ -33,7 +33,6 @@ public class StopActivity extends ListActivity implements AdapterView.OnItemClic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        Log.i("me.piv.StopActivity", "started");
         sessionData = new SessionData(this);
         populateSessions();
         getListView().setOnItemClickListener(this);
@@ -46,7 +45,7 @@ public class StopActivity extends ListActivity implements AdapterView.OnItemClic
             Session session = new Session(cursor.getLong(0), cursor.getLong(1), 0, cursor.getString(2));
             sessions.add(session);
         }
-        setListAdapter(new ArrayAdapter(this, R.layout.list_item, sessions));
+        setListAdapter(new ArrayAdapter(this, R.layout.stop_list_item, sessions));
     }
 
     private Cursor getIncompleteSessions() {

@@ -9,6 +9,11 @@
     android:gravity="center"
     android:padding="30dip"
     >
+    <ListView
+        android:id="@+id/activities"
+        android:layout_width="fill_parent"
+        android:layout_height="200sp"
+    />
     <EditText
         android:id="@+id/description"
         android:layout_width="fill_parent"
