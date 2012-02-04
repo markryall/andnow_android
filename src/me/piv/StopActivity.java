@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import me.piv.data.Session;
 import me.piv.data.SessionData;
 
