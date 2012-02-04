@@ -11,4 +11,8 @@
         android:id="@+id/synchronise"
         android:title="@string/synchronise_label"
     />
+    <item
+        android:id="@+id/edit"
+        android:title="@string/edit_label"
+    />
 </menu>
