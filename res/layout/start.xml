@@ -9,5 +9,15 @@
     android:gravity="center"
     android:padding="30dip"
     >
-
+    <EditText
+        android:id="@+id/description"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+    />
+    <Button
+        android:id="@+id/ok"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="OK"
+     />
 </LinearLayout>
