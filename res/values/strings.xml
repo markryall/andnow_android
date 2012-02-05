@@ -10,6 +10,10 @@
     <string name="synchronise_label">Synchronise</string>
     <string name="list_label">List</string>
 
+    <string name="description_label">Description</string>
+    <string name="cost_label">Cost</string>
+    <string name="count_label">Count</string>
+
     <string name="server_title">Server</string>
     <string name="server_summary">Remote server to synchronise with</string>
 </resources>

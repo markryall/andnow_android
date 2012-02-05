@@ -21,22 +21,34 @@ public class Edit extends Activity implements TextView.OnEditorActionListener {
         Bundle extras = getIntent().getExtras();
         session = (Session)extras.getSerializable("session");
         sessionRepository = new SessionRepository(this);
-        getTextView().setText(session.getDescription());
-        getTextView().setOnEditorActionListener(this);
+        getTextView(R.id.description).setText(session.getDescription());
+        getTextView(R.id.description).setOnEditorActionListener(this);
+        getTextView(R.id.count).setText(""+session.getCount());
+        getTextView(R.id.count).setOnEditorActionListener(this);
+        getTextView(R.id.cost).setText(""+session.getCost());
+        getTextView(R.id.cost).setOnEditorActionListener(this);
     }
 
     @Override
     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-        if(i == EditorInfo.IME_NULL && keyEvent.getAction() == KeyEvent.ACTION_DOWN) updateDescription(textView);
+        if(i == EditorInfo.IME_NULL && keyEvent.getAction() == KeyEvent.ACTION_DOWN) update();
         return true;
     }
 
-    private void updateDescription(TextView textView) {
-        sessionRepository.updateDescription(session, textView.getText().toString());
+    private void update() {
+        sessionRepository.update(session, toString(R.id.description), toLong(R.id.count), toLong(R.id.cost));
         finish();
     }
 
-    private TextView getTextView() {
-        return (TextView)findViewById(R.id.description);
+    private String toString(int id) {
+        return getTextView(id).getText().toString();
+    }
+
+    private long toLong(int id) {
+        return Long.parseLong(toString(id));
+    }
+
+    private TextView getTextView(int id) {
+        return (TextView)findViewById(id);
     }
 }

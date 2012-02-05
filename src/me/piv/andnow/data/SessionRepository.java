@@ -11,7 +11,7 @@ import static android.provider.BaseColumns._ID;
 import static me.piv.andnow.data.Session.*;
 
 public class SessionRepository {
-    private static final String[] ALL_COLS = { _ID, START_TIME, END_TIME, DESCRIPTION };
+    private static final String[] ALL_COLS = { _ID, START_TIME, END_TIME, DESCRIPTION, COUNT, COST };
     private static final String[] ALL_EXCEPT_END = { _ID, START_TIME, DESCRIPTION };
     private static final String[] DESCRIPTION_COL = { DESCRIPTION };
     private static String WHERE_END_IS_NULL = END_TIME + " IS NULL";
@@ -24,11 +24,22 @@ public class SessionRepository {
         sessionData = new SessionData(activity);
     }
 
+    private Session fromAllColumnCursor(Cursor cursor) {
+        int index = 0;
+        long id = cursor.getLong(index++);
+        long start = cursor.getLong(index++);
+        long end = cursor.getLong(index++);
+        String description = cursor.getString(index++);
+        long count = cursor.getLong(index++);
+        long cost = cursor.getLong(index++);
+        return new Session(id, start, end, description, count, cost);
+    }
+    
     public void each(SessionConsumer consumer) {
         Cursor cursor = sessionData.getReadableDatabase().query(TABLE_NAME, ALL_COLS, null, null, null, null, null);
         activity.startManagingCursor(cursor);
         while (cursor.moveToNext()) {
-            consumer.consume(new Session(cursor.getLong(0), cursor.getLong(1), cursor.getLong(2), cursor.getString(3)));
+            consumer.consume(fromAllColumnCursor(cursor));
         }
     }
 
@@ -52,7 +63,7 @@ public class SessionRepository {
         activity.startManagingCursor(cursor);
         List<Session> sessions = new ArrayList<Session>();
         while (cursor.moveToNext()) {
-            Session session = new Session(cursor.getLong(0), cursor.getLong(1), 0, cursor.getString(2));
+            Session session = new Session(cursor.getLong(0), cursor.getLong(1), 0, cursor.getString(2), 0, 0);
             sessions.add(session);
         }
         return sessions;
@@ -63,8 +74,7 @@ public class SessionRepository {
         activity.startManagingCursor(cursor);
         List<Session> sessions = new ArrayList<Session>();
         while (cursor.moveToNext()) {
-            Session session = new Session(cursor.getLong(0), cursor.getLong(1), cursor.getLong(2), cursor.getString(3));
-            sessions.add(session);
+            sessions.add(fromAllColumnCursor(cursor));
         }
         return sessions;
     }
@@ -76,10 +86,12 @@ public class SessionRepository {
         db.update(TABLE_NAME, values, "_ID = " + session.getId(), null);
     }
 
-    public void updateDescription(Session session, String description) {
+    public void update(Session session, String description, long count, long cost) {
         SQLiteDatabase db = sessionData.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DESCRIPTION, description);
+        values.put(COUNT, count);
+        values.put(COST, cost);
         db.update(TABLE_NAME, values, "_ID = " + session.getId(), null);
     }
 }

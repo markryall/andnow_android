@@ -5,10 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import static android.provider.BaseColumns._ID;
-import static me.piv.andnow.data.Session.TABLE_NAME;
-import static me.piv.andnow.data.Session.DESCRIPTION;
-import static me.piv.andnow.data.Session.START_TIME;
-import static me.piv.andnow.data.Session.END_TIME;
+import static me.piv.andnow.data.Session.*;
 
 public class SessionData extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "session_data.db";
@@ -25,13 +22,14 @@ public class SessionData extends SQLiteOpenHelper {
             _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             DESCRIPTION + " TEXT NOT NULL," +
             START_TIME + " INTEGER," +
-            END_TIME + " INTEGER" +
+            END_TIME + " INTEGER," +
+            COUNT + " INTEGER," +
+            COST + " INTEGER" +
             ");"
         );
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 }
