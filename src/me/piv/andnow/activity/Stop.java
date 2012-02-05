@@ -20,7 +20,7 @@ public class Stop extends ListActivity implements AdapterView.OnItemClickListene
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         sessionRepository = new SessionRepository(this);
         sessions = sessionRepository.getIncompleteSessions();
-        setListAdapter(new ArrayAdapter(this, R.layout.stop_list_item, sessions));
+        setListAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, sessions));
         getListView().setOnItemClickListener(this);
     }
 

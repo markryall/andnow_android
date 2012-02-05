@@ -2,10 +2,8 @@ package me.piv.andnow.data;
 
 import android.app.Activity;
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +53,17 @@ public class SessionRepository {
         List<Session> sessions = new ArrayList<Session>();
         while (cursor.moveToNext()) {
             Session session = new Session(cursor.getLong(0), cursor.getLong(1), 0, cursor.getString(2));
+            sessions.add(session);
+        }
+        return sessions;
+    }
+
+    public List<Session> getSessions() {
+        Cursor cursor = sessionData.getReadableDatabase().query(TABLE_NAME, ALL_COLS, null, null, null, null, ORDER_BY_START_DESC);
+        activity.startManagingCursor(cursor);
+        List<Session> sessions = new ArrayList<Session>();
+        while (cursor.moveToNext()) {
+            Session session = new Session(cursor.getLong(0), cursor.getLong(1), cursor.getLong(2), cursor.getString(3));
             sessions.add(session);
         }
         return sessions;

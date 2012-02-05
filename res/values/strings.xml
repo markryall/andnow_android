@@ -8,7 +8,7 @@
 
     <string name="settings_label">Settings</string>
     <string name="synchronise_label">Synchronise</string>
-    <string name="edit_label">Edit</string>
+    <string name="list_label">List</string>
 
     <string name="server_title">Server</string>
     <string name="server_summary">Remote server to synchronise with</string>

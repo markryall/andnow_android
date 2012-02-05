@@ -54,6 +54,8 @@ public class Main extends Activity implements View.OnClickListener, SessionConsu
             case R.id.synchronise:
                 synchronise();
                 return true;
+            case R.id.list:
+                startActivity(new Intent(this, List.class));
         }
         return false;
     }

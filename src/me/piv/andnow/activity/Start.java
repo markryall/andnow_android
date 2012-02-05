@@ -23,7 +23,8 @@ public class Start extends Activity implements TextView.OnEditorActionListener, 
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.start);
         sessionRepository = new SessionRepository(this);
-        loadData();
+        activities = sessionRepository.getUniqueDescriptions();
+        getListView().setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, activities));
         findViewById(R.id.ok).setOnClickListener(this);
         ((TextView)findViewById(R.id.description)).setOnEditorActionListener(this);
         getListView().setOnItemClickListener(this);
@@ -49,11 +50,6 @@ public class Start extends Activity implements TextView.OnEditorActionListener, 
     private void confirm(TextView textView) {
         createSession(textView.getText().toString());
         finish();
-    }
-
-    private void loadData() {
-        activities = sessionRepository.getUniqueDescriptions();
-        getListView().setAdapter(new ArrayAdapter(this, R.layout.start_list_item, activities));
     }
 
     private ListView getListView() {
