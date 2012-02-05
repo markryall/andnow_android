@@ -1,6 +1,8 @@
 package me.piv.andnow.data;
 
 import android.database.Cursor;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Session {
     public static final String TABLE_NAME = "sessions";
@@ -26,5 +28,13 @@ public class Session {
 
     public long getId() {
         return id;
+    }
+ 
+    public JSONObject toJSON() throws JSONException {
+        JSONObject json = new JSONObject();
+        json.put("description", description);
+        json.put("start_time", start);
+        json.put("end_time", end);
+        return json;
     }
 }
