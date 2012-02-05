@@ -18,8 +18,7 @@ public class List extends ListActivity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         sessionRepository = new SessionRepository(this);
-        sessions = sessionRepository.getSessions();
-        setListAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, sessions));
+        reload();
     }
 
     @Override
@@ -27,5 +26,16 @@ public class List extends ListActivity {
         Intent intent = new Intent(this, Edit.class);
         intent.putExtra("session", sessions.get(position));
         startActivity(intent);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        reload();
+    }
+
+    private void reload() {
+        sessions = sessionRepository.getSessions();
+        setListAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, sessions));
     }
 }

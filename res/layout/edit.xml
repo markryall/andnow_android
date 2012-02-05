@@ -19,6 +19,7 @@
         android:id="@+id/description"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:inputType="text"
         android:imeOptions="actionDone"
         />
     <TextView
@@ -32,6 +33,7 @@
         android:id="@+id/count"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:inputType="number"
         android:imeOptions="actionDone"
         />
     <TextView
@@ -45,6 +47,7 @@
         android:id="@+id/cost"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:inputType="number"
         android:imeOptions="actionDone"
         />
 </LinearLayout>

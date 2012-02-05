@@ -31,7 +31,7 @@ public class Edit extends Activity implements TextView.OnEditorActionListener {
 
     @Override
     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-        if(i == EditorInfo.IME_NULL && keyEvent.getAction() == KeyEvent.ACTION_DOWN) update();
+        if(i == EditorInfo.IME_ACTION_DONE) update();
         return true;
     }
 
