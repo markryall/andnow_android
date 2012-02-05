@@ -1,14 +1,17 @@
 package me.piv.andnow.data;
 
-import android.database.Cursor;
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Session {
     public static final String TABLE_NAME = "sessions";
     public static final String DESCRIPTION = "description";
     public static final String START_TIME = "start_time";
     public static final String END_TIME = "end_time";
+    public static final String FORMAT = "HH:mm EEE dd MMM";
+    public static final SimpleDateFormat formatter = new SimpleDateFormat(FORMAT);
     private long id;
     private long start;
     private long end;
@@ -23,7 +26,7 @@ public class Session {
 
     @Override
     public String toString() {
-        return description + " (" + start + ")";
+        return description + " (" + formatter.format(new Date(start)) + ")";
     }
 
     public long getId() {

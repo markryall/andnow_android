@@ -8,8 +8,13 @@ public class SessionTest extends TestCase {
     public void testShouldConvertToJSON() throws JSONException {
         Session session = new Session(1, 100, 200, "test");
         JSONObject json = session.toJSON();
-        assertEquals(json.get("description"), "test");
-        assertEquals(json.get("start_time"), 100L);
-        assertEquals(json.get("end_time"), 200L);
+        assertEquals("test", json.get("description"));
+        assertEquals(100L, json.get("start_time"));
+        assertEquals(200L, json.get("end_time"));
+    }
+
+    public void testShouldDisplayDescriptionAndStartTime() {
+        String string = new Session(1, 100, 200, "test").toString();
+        assertEquals("test (10:00 Thu 01 Jan)", string);
     }
 }
