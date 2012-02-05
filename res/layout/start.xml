@@ -17,12 +17,6 @@
     <ListView
         android:id="@+id/activities"
         android:layout_width="fill_parent"
-        android:layout_height="350sp"
+        android:layout_height="390sp"
     />
-    <Button
-        android:id="@+id/ok"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="OK"
-     />
 </LinearLayout>

@@ -2,10 +2,12 @@ package me.piv.andnow.data;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Session {
+public class Session implements Serializable {
     public static final String TABLE_NAME = "sessions";
     public static final String DESCRIPTION = "description";
     public static final String START_TIME = "start_time";
@@ -52,7 +54,11 @@ public class Session {
     public long getId() {
         return id;
     }
- 
+
+    public String getDescription() {
+        return description;
+    }
+
     public JSONObject toJSON() throws JSONException {
         JSONObject json = new JSONObject();
         json.put("description", description);

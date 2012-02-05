@@ -14,7 +14,7 @@ import me.piv.andnow.R;
 import me.piv.andnow.data.SessionRepository;
 import java.util.List;
 
-public class Start extends Activity implements TextView.OnEditorActionListener, View.OnClickListener, AdapterView.OnItemClickListener {
+public class Start extends Activity implements TextView.OnEditorActionListener, AdapterView.OnItemClickListener {
     private SessionRepository sessionRepository;
     private List<String> activities;
 
@@ -25,14 +25,8 @@ public class Start extends Activity implements TextView.OnEditorActionListener, 
         sessionRepository = new SessionRepository(this);
         activities = sessionRepository.getUniqueDescriptions();
         getListView().setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, activities));
-        findViewById(R.id.ok).setOnClickListener(this);
-        ((TextView)findViewById(R.id.description)).setOnEditorActionListener(this);
+        getTextView().setOnEditorActionListener(this);
         getListView().setOnItemClickListener(this);
-    }
-
-    @Override
-    public void onClick(View view) {
-       confirm((TextView)findViewById(R.id.description));
     }
 
     @Override
@@ -54,6 +48,10 @@ public class Start extends Activity implements TextView.OnEditorActionListener, 
 
     private ListView getListView() {
         return (ListView)findViewById(R.id.activities);
+    }
+
+    private TextView getTextView() {
+        return (TextView)findViewById(R.id.description);
     }
 
     private void createSession(String description) {

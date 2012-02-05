@@ -75,4 +75,11 @@ public class SessionRepository {
         values.put(END_TIME, System.currentTimeMillis());
         db.update(TABLE_NAME, values, "_ID = " + session.getId(), null);
     }
+
+    public void updateDescription(Session session, String description) {
+        SQLiteDatabase db = sessionData.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DESCRIPTION, description);
+        db.update(TABLE_NAME, values, "_ID = " + session.getId(), null);
+    }
 }

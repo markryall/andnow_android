@@ -1,9 +1,12 @@
 package me.piv.andnow.activity;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import me.piv.andnow.data.Session;
 import me.piv.andnow.data.SessionRepository;
 
@@ -17,5 +20,12 @@ public class List extends ListActivity {
         sessionRepository = new SessionRepository(this);
         sessions = sessionRepository.getSessions();
         setListAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, sessions));
+    }
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        Intent intent = new Intent(this, Edit.class);
+        intent.putExtra("session", sessions.get(position));
+        startActivity(intent);
     }
 }

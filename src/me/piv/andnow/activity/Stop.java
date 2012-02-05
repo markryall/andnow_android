@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import me.piv.andnow.R;
 import me.piv.andnow.data.Session;
 import me.piv.andnow.data.SessionRepository;
 import java.util.List;
