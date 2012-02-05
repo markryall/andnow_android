@@ -13,8 +13,43 @@ public class SessionTest extends TestCase {
         assertEquals(200L, json.get("end_time"));
     }
 
-    public void testShouldDisplayDescriptionAndStartTime() {
-        String string = new Session(1, 100, 200, "test").toString();
-        assertEquals("test (10:00 Thu 01 Jan)", string);
+    public void testShouldDisplayDescriptionAndStartTimeWhenIncomplete() {
+        String string = new Session(1, 100, 0, "test").toString();
+        assertEquals("test (since 10:00 Thu 01 Jan)", string);
+    }
+
+    public void testShouldDisplayDescriptionStartTimeInMillisecondsWhenCompletedInLessThanASecond() {
+        String string = new Session(1, 0, 999, "test").toString();
+        assertEquals("test (999 milliseconds from 10:00 Thu 01 Jan)", string);
+    }
+
+    public void testShouldDisplayDescriptionStartTimeInSecondsWhenCompletedInASecond() {
+        String string = new Session(1, 0, 1000, "test").toString();
+        assertEquals("test (1 seconds from 10:00 Thu 01 Jan)", string);
+    }
+
+    public void testShouldDisplayDescriptionStartTimeInSecondsWhenCompletedInLessThanAMinute() {
+        String string = new Session(1, 0, 59 * 1000, "test").toString();
+        assertEquals("test (59 seconds from 10:00 Thu 01 Jan)", string);
+    }
+
+    public void testShouldDisplayDescriptionStartTimeInMinutesWhenCompletedInAMinute() {
+        String string = new Session(1, 0, 60 * 1000, "test").toString();
+        assertEquals("test (1 minutes from 10:00 Thu 01 Jan)", string);
+    }
+
+    public void testShouldDisplayDescriptionStartTimeInMinutesWhenCompletedInLessThanAnHour() {
+        String string = new Session(1, 0, 59 * 60 * 1000, "test").toString();
+        assertEquals("test (59 minutes from 10:00 Thu 01 Jan)", string);
+    }
+
+    public void testShouldDisplayDescriptionStartTimeInHoursWhenCompletedInAnHour() {
+        String string = new Session(1, 0, 60 * 60 * 1000, "test").toString();
+        assertEquals("test (1 hours from 10:00 Thu 01 Jan)", string);
+    }
+
+    public void testShouldDisplayDescriptionStartTimeInHoursWhenCompletedInMoreTHanAnHour() {
+        String string = new Session(1, 0, 10 * 60 * 60 * 1000, "test").toString();
+        assertEquals("test (10 hours from 10:00 Thu 01 Jan)", string);
     }
 }

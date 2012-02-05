@@ -26,7 +26,27 @@ public class Session {
 
     @Override
     public String toString() {
-        return description + " (" + formatter.format(new Date(start)) + ")";
+        String startDate = formatter.format(new Date(start));
+        if (end <= 0) {
+            return String.format("%s (since %s)", description, startDate);
+        }
+        long duration = end - start;
+        if (duration < 1000) {
+            return String.format("%s (%d milliseconds from %s)", description, duration, startDate);
+        }
+        duration /= 1000;
+        if (duration < 60) {
+            return String.format("%s (%d seconds from %s)", description, duration, startDate);
+        }
+        duration /= 60;
+        if (duration < 60) {
+            return String.format("%s (%d minutes from %s)", description, duration, startDate);
+        }
+        duration /= 60;
+        if (duration < 60) {
+            return String.format("%s (%d hours from %s)", description, duration, startDate);
+        }
+        return "";
     }
 
     public long getId() {
