@@ -2,11 +2,8 @@ package me.piv.andnow.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,19 +11,11 @@ import android.view.Window;
 import me.piv.andnow.R;
 import me.piv.andnow.data.Session;
 import me.piv.andnow.data.SessionConsumer;
-import me.piv.andnow.data.SessionData;
 import me.piv.andnow.data.SessionRepository;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.AbstractHttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONObject;
-
-import static me.piv.andnow.data.Session.*;
+import me.piv.andnow.transport.SessionUploader;
 
 public class Main extends Activity implements View.OnClickListener, SessionConsumer {
-    String url;
+    SessionUploader sessionUploader;
 
     public void onCreate(Bundle savedInstanceState)
     {
@@ -70,24 +59,12 @@ public class Main extends Activity implements View.OnClickListener, SessionConsu
     }
 
     private void synchronise() {
-        url = PreferenceManager.getDefaultSharedPreferences(this).getString("server", "")+"/sessions.json";
+        String url = PreferenceManager.getDefaultSharedPreferences(this).getString("server", "")+"/sessions.json";
+        sessionUploader = new SessionUploader(url);
         (new SessionRepository(this)).each(this);
     }
 
     public void consume(Session session) {
-        try {
-            AbstractHttpClient httpClient = new DefaultHttpClient();
-            HttpPost postMethod = new HttpPost(url);
-            JSONObject parent = new JSONObject();
-            parent.put("session", session.toJSON());
-            StringEntity entity = new StringEntity(parent.toString(), "utf-8");
-            entity.setContentType("application/json");
-            postMethod.setEntity(entity);
-            HttpResponse response = httpClient.execute(postMethod);
-            String responseString = response.toString();
-            Log.i("me.piv", responseString);
-        } catch (Exception e) {
-            Log.e("me.piv","error sending session", e);
-        }
+        sessionUploader.upload(session);
     }
 }
