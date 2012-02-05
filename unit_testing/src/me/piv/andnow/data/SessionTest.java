@@ -9,7 +9,7 @@ public class SessionTest extends TestCase {
         Session session = new Session(1, 100, 200, "test");
         JSONObject json = session.toJSON();
         assertEquals(json.get("description"), "test");
-        assertEquals(""+json.get("start_time"), "100");
-        assertEquals(""+json.get("end_time"), "200");
+        assertEquals(json.get("start_time"), 100L);
+        assertEquals(json.get("end_time"), 200L);
     }
 }
