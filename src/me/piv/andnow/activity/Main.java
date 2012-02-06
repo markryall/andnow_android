@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +16,7 @@ import me.piv.andnow.data.SessionRepository;
 import me.piv.andnow.transport.SessionUploader;
 
 public class Main extends Activity implements View.OnClickListener, SessionConsumer {
+    SessionRepository sessionRepository;
     SessionUploader sessionUploader;
 
     public void onCreate(Bundle savedInstanceState)
@@ -22,6 +24,7 @@ public class Main extends Activity implements View.OnClickListener, SessionConsu
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
+        sessionRepository = new SessionRepository(this);
         findViewById(R.id.start_button).setOnClickListener(this);
         findViewById(R.id.stop_button).setOnClickListener(this);
     }
@@ -51,8 +54,8 @@ public class Main extends Activity implements View.OnClickListener, SessionConsu
             case R.id.settings:
                 startActivity(new Intent(this, Preferences.class));
                 return true;
-            case R.id.synchronise:
-                synchronise();
+            case R.id.upload:
+                upload();
                 return true;
             case R.id.list:
                 startActivity(new Intent(this, List.class));
@@ -60,13 +63,18 @@ public class Main extends Activity implements View.OnClickListener, SessionConsu
         return false;
     }
 
-    private void synchronise() {
+    private void upload() {
         String url = PreferenceManager.getDefaultSharedPreferences(this).getString("server", "")+"/sessions.json";
         sessionUploader = new SessionUploader(url);
-        (new SessionRepository(this)).each(this);
+        sessionRepository.each(this);
     }
 
     public void consume(Session session) {
-        sessionUploader.upload(session);
+        try {
+            sessionUploader.upload(session);
+            sessionRepository.destroy(session);
+        } catch (Exception e) {
+            Log.e("me.piv", "error sending session", e);
+        }
     }
 }

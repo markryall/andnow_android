@@ -94,4 +94,9 @@ public class SessionRepository {
         values.put(COST, cost);
         db.update(TABLE_NAME, values, "_ID = " + session.getId(), null);
     }
+
+    public void destroy(Session session) {
+        SQLiteDatabase db = sessionData.getWritableDatabase();
+        db.delete(TABLE_NAME, "_ID = " + session.getId(), null);
+    }
 }

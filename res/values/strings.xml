@@ -7,7 +7,7 @@
     <string name="stop_label">stop</string>
 
     <string name="settings_label">Settings</string>
-    <string name="synchronise_label">Synchronise</string>
+    <string name="upload_label">Upload</string>
     <string name="list_label">List</string>
 
     <string name="description_label">Description</string>

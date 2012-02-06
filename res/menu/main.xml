@@ -8,8 +8,8 @@
         android:title="@string/settings_label"
      />
     <item
-        android:id="@+id/synchronise"
-        android:title="@string/synchronise_label"
+        android:id="@+id/upload"
+        android:title="@string/upload_label"
     />
     <item
         android:id="@+id/list"
