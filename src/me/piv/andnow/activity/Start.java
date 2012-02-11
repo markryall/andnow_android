@@ -33,24 +33,15 @@ public class Start extends Activity implements TextView.OnEditorActionListener, 
 
     @Override
     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-        if(i == EditorInfo.IME_NULL && keyEvent.getAction() == KeyEvent.ACTION_DOWN) confirm(textView);
+        if(i == EditorInfo.IME_NULL && keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
+            createSession(textView.getText().toString());
+        }
         return true;
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         createSession(activities.get(i));
-        finish();
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        finish();
-    }
-
-    private void confirm(TextView textView) {
-        createSession(textView.getText().toString());
     }
 
     private ListView getListView() {
@@ -62,9 +53,7 @@ public class Start extends Activity implements TextView.OnEditorActionListener, 
     }
 
     private void createSession(String description) {
-        Session session = sessionRepository.start(description, System.currentTimeMillis());
-        Intent intent = new Intent(this, Edit.class);
-        intent.putExtra("session", session);
-        startActivity(intent);
+        sessionRepository.start(description, System.currentTimeMillis());
+        finish();
     }
 }
