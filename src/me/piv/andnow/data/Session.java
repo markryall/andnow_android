@@ -78,8 +78,8 @@ public class Session implements Serializable {
     public JSONObject toJSON() throws JSONException {
         JSONObject json = new JSONObject();
         json.put("description", description);
-        addIfNonZero(json, "start_time", start);
-        addIfNonZero(json, "end_time", end);
+        addIfNonZero(json, "start_time", start/1000);
+        addIfNonZero(json, "end_time", end/1000);
         addIfNonZero(json, "count", count);
         addIfNonZero(json, "cost", cost);
         return json;

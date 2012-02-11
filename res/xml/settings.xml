@@ -3,8 +3,8 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
     <android.preference.EditTextPreference
-        android:key="server"
-        android:title="@string/server_title"
-        android:summary="@string/server_summary"
+        android:key="token"
+        android:title="@string/token_title"
+        android:summary="@string/token_summary"
     />
 </PreferenceScreen>

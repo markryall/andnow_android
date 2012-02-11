@@ -10,22 +10,24 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
 public class SessionUploader {
-    private String url;
+    private static final String url = "http://andnow.herokuapp.com/sessions.json";
+    private String token;
 
-    public SessionUploader(String url) {
-        this.url = url;
+    public SessionUploader(String token) {
+        this.token = token;
     }
 
-    public void upload(Session session) throws Exception {
+    public boolean upload(Session session) throws Exception {
         AbstractHttpClient httpClient = new DefaultHttpClient();
         HttpPost postMethod = new HttpPost(url);
-        JSONObject parent = new JSONObject();
-        parent.put("session", session.toJSON());
-        StringEntity entity = new StringEntity(parent.toString(), "utf-8");
+        JSONObject json = new JSONObject();
+        JSONObject sessionJson = session.toJSON();
+        sessionJson.put("token", token);
+        json.put("session", sessionJson);
+        StringEntity entity = new StringEntity(json.toString(), "utf-8");
         entity.setContentType("application/json");
         postMethod.setEntity(entity);
         HttpResponse response = httpClient.execute(postMethod);
-        String responseString = response.toString();
-        Log.i("me.piv", responseString);
+        return response.getStatusLine().getStatusCode() == 201;
     }
 }

@@ -64,15 +64,16 @@ public class Main extends Activity implements View.OnClickListener, SessionConsu
     }
 
     private void upload() {
-        String url = PreferenceManager.getDefaultSharedPreferences(this).getString("server", "")+"/sessions.json";
-        sessionUploader = new SessionUploader(url);
+        String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token","exampletoken");
+        sessionUploader = new SessionUploader(token);
         sessionRepository.each(this);
     }
 
     public void consume(Session session) {
         try {
-            sessionUploader.upload(session);
-            sessionRepository.destroy(session);
+            if (sessionUploader.upload(session)) {
+                sessionRepository.destroy(session);
+            }
         } catch (Exception e) {
             Log.e("me.piv", "error sending session", e);
         }
