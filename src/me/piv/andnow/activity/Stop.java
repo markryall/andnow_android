@@ -34,7 +34,7 @@ public class Stop extends ListActivity implements AdapterView.OnItemClickListene
     @Override
     protected void onRestart() {
         super.onRestart();
-        reload();
+        finish();
     }
 
     private void reload() {

@@ -51,11 +51,12 @@ public class SessionRepository {
         return activities;
     }
 
-    public long start(String description, long start) {
+    public Session start(String description, long start) {
         ContentValues values = new ContentValues();
         values.put(START_TIME, start);
         values.put(DESCRIPTION, description);
-        return sessionData.getWritableDatabase().insertOrThrow(TABLE_NAME, null, values);
+        long id = sessionData.getWritableDatabase().insertOrThrow(TABLE_NAME, null, values);
+        return new Session(id, start, 0, description, 0, 0);
     }
 
     public List<Session> getIncompleteSessions() {
@@ -86,6 +87,13 @@ public class SessionRepository {
         db.update(TABLE_NAME, values, "_ID = " + session.getId(), null);
     }
 
+    public void restart(Session session) {
+        SQLiteDatabase db = sessionData.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(END_TIME, (String)null);
+        db.update(TABLE_NAME, values, "_ID = " + session.getId(), null);
+    }
+    
     public void update(Session session, String description, long count, long cost) {
         SQLiteDatabase db = sessionData.getWritableDatabase();
         ContentValues values = new ContentValues();

@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">And Now?</string>
+    <string name="app_name">and Now?</string>
     <string name="main_title">and now?</string>
 
     <string name="start_label">start</string>
     <string name="stop_label">stop</string>
 
-    <string name="settings_label">Settings</string>
-    <string name="upload_label">Upload</string>
-    <string name="list_label">List</string>
+    <string name="settings_label">settings</string>
+    <string name="upload_label">upload</string>
+    <string name="list_label">list</string>
 
-    <string name="description_label">Description</string>
-    <string name="cost_label">Cost</string>
-    <string name="count_label">Count</string>
+    <string name="destroy_label">destroy</string>
+    <string name="restart_label">restart</string>
 
-    <string name="token_title">Token</string>
-    <string name="token_summary">Authentication token</string>
+    <string name="description_label">description</string>
+    <string name="cost_label">cost</string>
+    <string name="count_label">count</string>
+
+    <string name="token_title">token</string>
+    <string name="token_summary">authentication token</string>
 </resources>

@@ -31,7 +31,7 @@ public class List extends ListActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        reload();
+        finish();
     }
 
     private void reload() {

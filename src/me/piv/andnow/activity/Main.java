@@ -26,6 +26,7 @@ public class Main extends Activity implements View.OnClickListener, SessionConsu
         setContentView(R.layout.main);
         sessionRepository = new SessionRepository(this);
         findViewById(R.id.start_button).setOnClickListener(this);
+        findViewById(R.id.list_button).setOnClickListener(this);
         findViewById(R.id.stop_button).setOnClickListener(this);
     }
 
@@ -34,6 +35,9 @@ public class Main extends Activity implements View.OnClickListener, SessionConsu
         switch(view.getId()) {
             case R.id.start_button:
                 startActivity(new Intent(this, Start.class));
+                return;
+            case R.id.list_button:
+                startActivity(new Intent(this, List.class));
                 return;
             case R.id.stop_button:
                 startActivity(new Intent(this, Stop.class));
@@ -57,8 +61,6 @@ public class Main extends Activity implements View.OnClickListener, SessionConsu
             case R.id.upload:
                 upload();
                 return true;
-            case R.id.list:
-                startActivity(new Intent(this, List.class));
         }
         return false;
     }

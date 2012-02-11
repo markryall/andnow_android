@@ -1,6 +1,7 @@
 package me.piv.andnow.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import me.piv.andnow.R;
+import me.piv.andnow.data.Session;
 import me.piv.andnow.data.SessionRepository;
 import java.util.List;
 
@@ -41,9 +43,14 @@ public class Start extends Activity implements TextView.OnEditorActionListener, 
         finish();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        finish();
+    }
+
     private void confirm(TextView textView) {
         createSession(textView.getText().toString());
-        finish();
     }
 
     private ListView getListView() {
@@ -55,6 +62,9 @@ public class Start extends Activity implements TextView.OnEditorActionListener, 
     }
 
     private void createSession(String description) {
-        sessionRepository.start(description, System.currentTimeMillis());
+        Session session = sessionRepository.start(description, System.currentTimeMillis());
+        Intent intent = new Intent(this, Edit.class);
+        intent.putExtra("session", session);
+        startActivity(intent);
     }
 }

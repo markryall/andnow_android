@@ -19,21 +19,35 @@
     <Button
         android:id="@+id/start_button"
         android:layout_width="fill_parent"
-        android:layout_height="100dip"
+        android:layout_height="60dip"
         android:text="@string/start_label"
         android:background="@drawable/green_button"
         android:textSize="24.5sp"
         />
     <TextView
         android:layout_width="fill_parent"
-        android:layout_height="5dip"
+        android:layout_height="1dip"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_marginBottom="25dip"
+        />
+    <Button
+        android:id="@+id/list_button"
+        android:layout_width="fill_parent"
+        android:layout_height="60dip"
+        android:text="@string/list_label"
+        android:background="@drawable/yellow_button"
+        android:textSize="24.5sp"
+        />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
         android:gravity="center_vertical|center_horizontal"
         android:layout_marginBottom="25dip"
         />
     <Button
         android:id="@+id/stop_button"
         android:layout_width="fill_parent"
-        android:layout_height="100dip"
+        android:layout_height="60dip"
         android:text="@string/stop_label"
         android:background="@drawable/red_button"
         android:textSize="24.5sp"

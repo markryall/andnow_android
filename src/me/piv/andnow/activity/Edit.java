@@ -1,8 +1,11 @@
 package me.piv.andnow.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
@@ -33,6 +36,28 @@ public class Edit extends Activity implements TextView.OnEditorActionListener {
     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
         if(i == EditorInfo.IME_ACTION_DONE) update();
         return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.edit, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.restart:
+                sessionRepository.restart(session);
+                finish();
+                return true;
+            case R.id.destroy:
+                sessionRepository.destroy(session);
+                finish();
+                return true;
+        }
+        return false;
     }
 
     private void update() {
