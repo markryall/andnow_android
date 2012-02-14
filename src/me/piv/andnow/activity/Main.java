@@ -1,6 +1,8 @@
 package me.piv.andnow.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -9,7 +11,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 import me.piv.andnow.R;
+import me.piv.andnow.Toaster;
 import me.piv.andnow.data.Session;
 import me.piv.andnow.data.SessionConsumer;
 import me.piv.andnow.data.SessionRepository;
@@ -18,6 +22,7 @@ import me.piv.andnow.transport.SessionUploader;
 public class Main extends Activity implements View.OnClickListener, SessionConsumer {
     SessionRepository sessionRepository;
     SessionUploader sessionUploader;
+    Toaster toaster;
 
     public void onCreate(Bundle savedInstanceState)
     {
@@ -25,6 +30,7 @@ public class Main extends Activity implements View.OnClickListener, SessionConsu
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
         sessionRepository = new SessionRepository(this);
+        toaster = new Toaster(this);
         findViewById(R.id.start_button).setOnClickListener(this);
         findViewById(R.id.list_button).setOnClickListener(this);
         findViewById(R.id.stop_button).setOnClickListener(this);
@@ -41,7 +47,11 @@ public class Main extends Activity implements View.OnClickListener, SessionConsu
     public void onClick(View view) {
         switch(view.getId()) {
             case R.id.start_button:
-                startActivity(new Intent(this, Start.class));
+                if (sessionRepository.hasIncompleteSessions()) {
+                    promptToFinishMostRecentSession();
+                } else {
+                    launchStart();
+                }
                 return;
             case R.id.list_button:
                 startActivity(new Intent(this, List.class));
@@ -50,6 +60,29 @@ public class Main extends Activity implements View.OnClickListener, SessionConsu
                 startActivity(new Intent(this, Stop.class));
                 return;
         }
+    }
+
+    private void launchStart() {
+        startActivity(new Intent(this, Start.class));
+    }
+
+    private void promptToFinishMostRecentSession() {
+        final Session session = sessionRepository.getIncompleteSessions().get(0);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Have you finished "+session.getDescription()+" ?")
+            .setCancelable(false)
+            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    sessionRepository.end(session);
+                    launchStart();
+                }
+            })
+            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    launchStart();
+                }
+            });
+        builder.create().show();
     }
 
     @Override
@@ -86,9 +119,13 @@ public class Main extends Activity implements View.OnClickListener, SessionConsu
     public void consume(Session session) {
         try {
             if (sessionUploader.upload(session)) {
+                toaster.shortToast("Successfully uploaded "+session.toString());
                 sessionRepository.destroy(session);
+            } else {
+                toaster.shortToast("Failed to upload "+session.toString()+" check token is set correctly");
             }
         } catch (Exception e) {
+            toaster.shortToast("Failed to upload "+session.toString()+" ("+e.getMessage()+")");
             Log.e("me.piv", "error sending session", e);
         }
     }
