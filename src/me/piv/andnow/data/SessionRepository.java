@@ -34,10 +34,9 @@ public class SessionRepository {
         long cost = cursor.getLong(index++);
         return new Session(id, start, end, description, count, cost);
     }
-    
+
     public void each(SessionConsumer consumer) {
-        Cursor cursor = sessionData.getReadableDatabase().query(TABLE_NAME, ALL_COLS, null, null, null, null, null);
-        activity.startManagingCursor(cursor);
+        Cursor cursor = allSessions();
         while (cursor.moveToNext()) {
             consumer.consume(fromAllColumnCursor(cursor));
         }
@@ -59,20 +58,7 @@ public class SessionRepository {
         return new Session(id, start, 0, description, 0, 0);
     }
 
-    public List<Session> getIncompleteSessions() {
-        Cursor cursor = sessionData.getReadableDatabase().query(TABLE_NAME, ALL_EXCEPT_END, WHERE_END_IS_NULL, null, null, null, ORDER_BY_START_DESC);
-        activity.startManagingCursor(cursor);
-        List<Session> sessions = new ArrayList<Session>();
-        while (cursor.moveToNext()) {
-            Session session = new Session(cursor.getLong(0), cursor.getLong(1), 0, cursor.getString(2), 0, 0);
-            sessions.add(session);
-        }
-        return sessions;
-    }
-
-    public List<Session> getSessions() {
-        Cursor cursor = sessionData.getReadableDatabase().query(TABLE_NAME, ALL_COLS, null, null, null, null, ORDER_BY_START_DESC);
-        activity.startManagingCursor(cursor);
+    private List<Session> sessionsFromCursor(Cursor cursor) {
         List<Session> sessions = new ArrayList<Session>();
         while (cursor.moveToNext()) {
             sessions.add(fromAllColumnCursor(cursor));
@@ -80,31 +66,61 @@ public class SessionRepository {
         return sessions;
     }
 
+    private Cursor sessionCursor(String selection) {
+        Cursor cursor = sessionData.getReadableDatabase().query(TABLE_NAME, ALL_COLS, selection, null, null, null, ORDER_BY_START_DESC);
+        activity.startManagingCursor(cursor);
+        return cursor;
+    }
+    
+    private Cursor incompleteSessions() {
+        return sessionCursor(WHERE_END_IS_NULL);
+    }
+
+    public boolean hasIncompleteSessions() {
+        return incompleteSessions().moveToNext();
+    }
+    
+    public List<Session> getIncompleteSessions() {
+        return sessionsFromCursor(incompleteSessions());
+    }
+
+    private Cursor allSessions() {
+        return sessionCursor(null);
+    }
+
+    public boolean hasSessions() {
+        return allSessions().moveToNext();
+    }
+
+    public List<Session> getSessions() {
+        return sessionsFromCursor(allSessions());
+    }
+
     public void end(Session session) {
-        SQLiteDatabase db = sessionData.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(END_TIME, System.currentTimeMillis());
-        db.update(TABLE_NAME, values, "_ID = " + session.getId(), null);
+        writableDb().update(TABLE_NAME, values, "_ID = " + session.getId(), null);
     }
 
     public void restart(Session session) {
-        SQLiteDatabase db = sessionData.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(END_TIME, (String)null);
-        db.update(TABLE_NAME, values, "_ID = " + session.getId(), null);
+        writableDb().update(TABLE_NAME, values, "_ID = " + session.getId(), null);
     }
     
     public void update(Session session, String description, long count, long cost) {
-        SQLiteDatabase db = sessionData.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DESCRIPTION, description);
         values.put(COUNT, count);
         values.put(COST, cost);
-        db.update(TABLE_NAME, values, "_ID = " + session.getId(), null);
+        writableDb().update(TABLE_NAME, values, "_ID = " + session.getId(), null);
     }
 
     public void destroy(Session session) {
-        SQLiteDatabase db = sessionData.getWritableDatabase();
-        db.delete(TABLE_NAME, "_ID = " + session.getId(), null);
+        writableDb().delete(TABLE_NAME, "_ID = " + session.getId(), null);
+    }
+
+    private SQLiteDatabase writableDb() {
+        return sessionData.getWritableDatabase();
     }
 }

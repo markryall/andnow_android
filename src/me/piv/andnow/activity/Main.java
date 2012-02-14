@@ -28,6 +28,13 @@ public class Main extends Activity implements View.OnClickListener, SessionConsu
         findViewById(R.id.start_button).setOnClickListener(this);
         findViewById(R.id.list_button).setOnClickListener(this);
         findViewById(R.id.stop_button).setOnClickListener(this);
+        refresh();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        refresh();
     }
 
     @Override
@@ -63,6 +70,11 @@ public class Main extends Activity implements View.OnClickListener, SessionConsu
                 return true;
         }
         return false;
+    }
+
+    private void refresh() {
+        findViewById(R.id.list_button).setEnabled(sessionRepository.hasSessions());
+        findViewById(R.id.stop_button).setEnabled(sessionRepository.hasIncompleteSessions());
     }
 
     private void upload() {
