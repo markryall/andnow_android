@@ -8,6 +8,7 @@
 
     <string name="settings_label">settings</string>
     <string name="upload_label">upload</string>
+    <string name="register_label">register</string>
     <string name="list_label">list</string>
 
     <string name="destroy_label">destroy</string>

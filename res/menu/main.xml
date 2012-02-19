@@ -8,6 +8,10 @@
         android:title="@string/settings_label"
      />
     <item
+        android:id="@+id/register"
+        android:title="@string/register_label"
+        />
+    <item
         android:id="@+id/upload"
         android:title="@string/upload_label"
     />

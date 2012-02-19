@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -101,6 +103,9 @@ public class Main extends Activity implements View.OnClickListener, SessionConsu
             case R.id.upload:
                 upload();
                 return true;
+            case R.id.register:
+                register();
+                return true;
         }
         return false;
     }
@@ -111,9 +116,17 @@ public class Main extends Activity implements View.OnClickListener, SessionConsu
     }
 
     private void upload() {
-        String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token","exampletoken");
+        String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token",null);
         sessionUploader = new SessionUploader(token);
         sessionRepository.each(this);
+    }
+
+    private void register() {
+        SessionUploader uploader = SessionUploader.generate();
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+        editor.putString("token",uploader.getToken());
+        editor.commit();
+        startActivity(new Intent(Intent.ACTION_VIEW,uploader.registrationUri()));
     }
 
     public void consume(Session session) {
@@ -124,6 +137,7 @@ public class Main extends Activity implements View.OnClickListener, SessionConsu
             } else {
                 toaster.shortToast("Failed to upload "+session.toString()+" check token is set correctly");
             }
+            refresh();
         } catch (Exception e) {
             toaster.shortToast("Failed to upload "+session.toString()+" ("+e.getMessage()+")");
             Log.e("me.piv", "error sending session", e);
