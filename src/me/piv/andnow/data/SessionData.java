@@ -9,7 +9,7 @@ import static me.piv.andnow.data.Session.*;
 
 public class SessionData extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "session_data.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public SessionData(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -24,12 +24,13 @@ public class SessionData extends SQLiteOpenHelper {
             START_TIME + " INTEGER," +
             END_TIME + " INTEGER," +
             COUNT + " INTEGER," +
-            COST + " INTEGER" +
+            COST + " INTEGER," +
+            NOTES + " TEXT" +
             ");"
         );
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase db, int actual, int expected) {
     }
 }

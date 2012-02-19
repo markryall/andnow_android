@@ -17,6 +17,7 @@
     <string name="description_label">description</string>
     <string name="cost_label">cost</string>
     <string name="count_label">count</string>
+    <string name="notes_label">notes</string>
 
     <string name="token_title">token</string>
     <string name="token_summary">authentication token</string>

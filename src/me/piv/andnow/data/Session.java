@@ -15,6 +15,7 @@ public class Session implements Serializable {
     public static final String END_TIME = "end_time";
     public static final String COUNT = "count";
     public static final String COST = "cost";
+    public static final String NOTES = "notes";
 
     public static final String FORMAT = "HH:mm EEE dd MMM";
     public static final SimpleDateFormat formatter = new SimpleDateFormat(FORMAT);
@@ -24,14 +25,16 @@ public class Session implements Serializable {
     private String description;
     private long count;
     private long cost;
+    private String notes;
 
-    public Session(long id, long start, long end, String description, long count, long cost) {
+    public Session(long id, long start, long end, String description, long count, long cost, String notes) {
         this.id = id;
         this.start = start;
         this.end = end;
         this.description = description;
         this.count = count;
         this.cost = cost;
+        this.notes = notes;
     }
 
     @Override
@@ -75,6 +78,10 @@ public class Session implements Serializable {
         return cost;
     }
 
+    public String getNotes() {
+        return notes;
+    }
+
     public JSONObject toJSON() throws JSONException {
         JSONObject json = new JSONObject();
         json.put("description", description);
@@ -82,6 +89,7 @@ public class Session implements Serializable {
         addIfNonZero(json, "end_time", end/1000);
         addIfNonZero(json, "count", count);
         addIfNonZero(json, "cost", cost);
+        json.put("notes", notes);
         return json;
     }
 

@@ -11,8 +11,7 @@ import static android.provider.BaseColumns._ID;
 import static me.piv.andnow.data.Session.*;
 
 public class SessionRepository {
-    private static final String[] ALL_COLS = { _ID, START_TIME, END_TIME, DESCRIPTION, COUNT, COST };
-    private static final String[] ALL_EXCEPT_END = { _ID, START_TIME, DESCRIPTION };
+    private static final String[] ALL_COLS = { _ID, START_TIME, END_TIME, DESCRIPTION, COUNT, COST, NOTES };
     private static final String[] DESCRIPTION_COL = { DESCRIPTION };
     private static String WHERE_END_IS_NULL = END_TIME + " IS NULL";
     private static String ORDER_BY_START_DESC = START_TIME + " DESC";
@@ -32,7 +31,8 @@ public class SessionRepository {
         String description = cursor.getString(index++);
         long count = cursor.getLong(index++);
         long cost = cursor.getLong(index++);
-        return new Session(id, start, end, description, count, cost);
+        String notes = cursor.getString(index++);
+        return new Session(id, start, end, description, count, cost, notes);
     }
 
     public void each(SessionConsumer consumer) {
@@ -55,7 +55,7 @@ public class SessionRepository {
         values.put(START_TIME, start);
         values.put(DESCRIPTION, description);
         long id = sessionData.getWritableDatabase().insertOrThrow(TABLE_NAME, null, values);
-        return new Session(id, start, 0, description, 0, 0);
+        return new Session(id, start, 0, description, 0, 0, "");
     }
 
     private List<Session> sessionsFromCursor(Cursor cursor) {
@@ -108,11 +108,12 @@ public class SessionRepository {
         writableDb().update(TABLE_NAME, values, "_ID = " + session.getId(), null);
     }
     
-    public void update(Session session, String description, long count, long cost) {
+    public void update(Session session, String description, long count, long cost, String notes) {
         ContentValues values = new ContentValues();
         values.put(DESCRIPTION, description);
         values.put(COUNT, count);
         values.put(COST, cost);
+        values.put(NOTES, notes);
         writableDb().update(TABLE_NAME, values, "_ID = " + session.getId(), null);
     }
 

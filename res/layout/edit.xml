@@ -50,4 +50,18 @@
         android:inputType="number"
         android:imeOptions="actionDone"
         />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/notes_label"
+        android:layout_marginBottom="5dip"
+        android:textSize="20sp"
+        />
+    <EditText
+        android:id="@+id/notes"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:imeOptions="actionDone"
+        />
 </LinearLayout>

@@ -30,6 +30,8 @@ public class Edit extends Activity implements TextView.OnEditorActionListener {
         getTextView(R.id.count).setOnEditorActionListener(this);
         getTextView(R.id.cost).setText(""+session.getCost());
         getTextView(R.id.cost).setOnEditorActionListener(this);
+        getTextView(R.id.notes).setText(session.getNotes());
+        getTextView(R.id.notes).setOnEditorActionListener(this);
     }
 
     @Override
@@ -61,7 +63,7 @@ public class Edit extends Activity implements TextView.OnEditorActionListener {
     }
 
     private void update() {
-        sessionRepository.update(session, toString(R.id.description), toLong(R.id.count), toLong(R.id.cost));
+        sessionRepository.update(session, toString(R.id.description), toLong(R.id.count), toLong(R.id.cost), toString(R.id.notes));
         finish();
     }
 
